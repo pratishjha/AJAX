@@ -11,11 +11,12 @@ $output= '<table border="1" width="100%" cellspacing="0" cellpadding="10px">
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Email-ID</th>
             </tr>';
 
             while($row=mysqli_fetch_assoc($result)){
 
-                $output .= "<tr><td>{$row["id"]}</td><td>{$row["firstName"]} {$row["lastName"]}</td></tr>";
+                $output .= "<tr><td>{$row["id"]}</td><td>{$row["firstName"]} {$row["lastName"]}</td><td>{$row["email"]}</td></tr>";
                 
             }
             $output .= "</table>";
