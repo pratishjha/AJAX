@@ -15,6 +15,10 @@
     <body>
       <center>  <h1>PHP WITH AJAX Effect</h1>
         <h2> Get data without loading of URL</h2>
+        <div id="search-bar">
+            <label> SEARCH</label>
+            <input type="text" id="search" autocomplete="off">
+        </div>
         <form id="insertForm">
             <h2> First Name: <input type="text" id="fname"> Last Name: <input type="text" id="lname"> Email Id: <input type="text" id="emailid"></h2>
             <input type="submit" value="SAVE" id="saveData"> 
@@ -25,12 +29,30 @@
     <div id="errormsg"></div>
     <div id="table-data">
         
+        
 
 
 </div>
 
 <script type="text/javascript">
     $(document).ready(function(){
+
+        $("#search").on("keyup", function(){
+            var search_term = $(this).val();
+
+            $.ajax({
+                url: "ajax-live-search.php",
+                type: "POST",
+                data : {searchT:search_term},
+                success: function(data)
+                {
+                    $("#table-data").html(data);
+                }
+            });
+
+        });
+
+
         function loadData(){
         $.ajax({
             url: "ajax-load.php",
