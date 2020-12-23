@@ -6,18 +6,28 @@ $femail = $_POST["user_email"];
 
 $conn = mysqli_connect("localhost", "root", "p.jha@1995","myApp") or die ("Connection Failed");
 
-$sql= "INSERT INTO  userDetails(firstName, lastName, email) VALUES ('{$firstname}','{$lastname}','{$femail}')";
+$sql1= "SELECT * from userDetails WHERE email='$femail'";
 
-//$result= mysqli_query($conn, $sql) or die("Connection Failed");
+$result= mysqli_query($conn, $sql1) or die(" QUERY ERROR");
 
-if(mysqli_query($conn, $sql))
+if(mysqli_num_rows($result)>0)
 {
-echo 1;
-}else
-{
-echo mysqli_error($conn);
+    echo "Email Already resgitered";
 }
+else
+{
+    $sql= "INSERT INTO  userDetails(firstName, lastName, email) VALUES ('{$firstname}','{$lastname}','{$femail}')";
 
+    //$result= mysqli_query($conn, $sql) or die("Connection Failed");
+    
+    if(mysqli_query($conn, $sql))
+    {
+    echo 1;
+    }else
+    {
+    echo mysqli_error($conn);
+    }
+}
 
 mysqli_close($conn);
 

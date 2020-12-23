@@ -15,12 +15,13 @@
     <body>
       <center>  <h1>PHP WITH AJAX Effect</h1>
         <h2> Get data without loading of URL</h2>
-        <form>
+        <form id="insertForm">
             <h2> First Name: <input type="text" id="fname"> Last Name: <input type="text" id="lname"> Email Id: <input type="text" id="emailid"></h2>
             <input type="submit" value="SAVE" id="saveData"> 
         </form>
     <!-- <button id="load-data">LOAD DATA</button>  --></center>
     <br/>
+    <div id="successmsg"></div>
     <div id="errormsg"></div>
     <div id="table-data">
         
@@ -41,10 +42,17 @@
     
 }
         $("#saveData").on("click",function(e){
+
             e.preventDefault();
             var fname = $("#fname").val();
             var lname = $("#lname").val();
             var femail = $("#emailid").val();
+
+            if(fname == "" || lname=="" || femail==""){
+                $("#errormsg").html("All fields are required").slideDown();
+            }
+            else
+            {
 
 
             $.ajax({
@@ -55,6 +63,9 @@
                     if(data ==1)
                     {
                     loadData();
+                    $("#insertForm").trigger("reset");
+                    $("#errormsg").slideUp();
+                    
                 }
                 else{
                     $("#errormsg").html(data);
@@ -62,6 +73,7 @@
                 }
 
             });
+        }
 
         });        
 
